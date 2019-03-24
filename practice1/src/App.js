@@ -19,9 +19,15 @@ export default function App() {
     setRepositories(data);
   }, []);
 
+  useEffect(() => {
+    const favs = repositories.filter(repo => repo.favorite);
+
+    document.title = `You have ${favs.length} favorites`;
+  }, [repositories]);
+
   function handleFavorite(id) {
     const newRepos = repositories.map(repo => {
-      return repo.id === id ? { ...repo, favorite: true } : repo;
+      return repo.id === id ? { ...repo, favorite: !repo.favorite } : repo;
     });
 
     setRepositories(newRepos);
@@ -31,9 +37,9 @@ export default function App() {
     <ul>
       {repositories.map(repo => (
         <li key={repo.id}>
-          {repo.name}
-          {repo.favorite && <span> ★</span>}
           <button onClick={() => handleFavorite(repo.id)}>Favorite</button>
+          <strong>{repo.name}</strong>
+          {repo.favorite && <span> ★</span>}
         </li>
       ))}
     </ul>
