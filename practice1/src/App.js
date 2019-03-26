@@ -6,7 +6,6 @@ export default function App() {
   async function getRepos(user) {
     const response = await fetch(`https://api.github.com/users/${user}/repos`);
     return await response.json();
-    
   }
 
   useEffect(() => {
