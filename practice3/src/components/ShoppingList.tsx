@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from 'react'
+import React, { useReducer, useRef, FormEvent } from 'react'
 
 const ShoppingList: React.FC = () => {
 	const inputRef: React.MutableRefObject<any> = useRef()
@@ -7,7 +7,7 @@ const ShoppingList: React.FC = () => {
 			case 'add':
 				return [...state, { id: state.length, name: action.name }]
 			case 'remove':
-				return state.filter((item: any, index: any) => index !== action.index)
+				return state.filter((item: any, index: number) => index !== action.index)
 			case 'clear':
 				return []
 			default:
@@ -15,7 +15,7 @@ const ShoppingList: React.FC = () => {
 		}
 	}, [])
 
-	function handleSubmit(event: any) {
+	function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault()
 		dispatch({
 			type: 'add',
@@ -30,7 +30,7 @@ const ShoppingList: React.FC = () => {
 			</form>
 			<button onClick={() => dispatch({ type: 'clear' })}>clear</button>
 			<ul>
-				{list.map((item: any, index: any) => (
+				{list.map((item: any, index: number) => (
 					<li key={item.id}>
 						{item.name}
 						<button onClick={() => dispatch({ type: 'remove', index })}>x</button>
