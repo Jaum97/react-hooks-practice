@@ -1,5 +1,10 @@
 import React, { useReducer, useRef, FormEvent } from 'react'
 
+interface IState {
+	id: number
+	name: string
+}
+
 const ShoppingList: React.FC = () => {
 	const inputRef: React.MutableRefObject<any> = useRef()
 	const [list, dispatch] = useReducer((state, action) => {
@@ -7,7 +12,7 @@ const ShoppingList: React.FC = () => {
 			case 'add':
 				return [...state, { id: state.length, name: action.name }]
 			case 'remove':
-				return state.filter((item: any, index: number) => index !== action.index)
+				return state.filter((item: IState, index: number) => index !== action.index)
 			case 'clear':
 				return []
 			default:
@@ -30,7 +35,7 @@ const ShoppingList: React.FC = () => {
 			</form>
 			<button onClick={() => dispatch({ type: 'clear' })}>clear</button>
 			<ul>
-				{list.map((item: any, index: number) => (
+				{list.map((item: IState, index: number) => (
 					<li key={item.id}>
 						{item.name}
 						<button onClick={() => dispatch({ type: 'remove', index })}>x</button>
