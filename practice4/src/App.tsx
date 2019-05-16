@@ -3,8 +3,10 @@ import logo from './logo.svg';
 import './App.css';
 
 const App: React.FC = () => {
+
+  const refTest = React.useRef(null)
   return (
-    <div className="App">
+    <div ref={refTest} className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -16,6 +18,7 @@ const App: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
+      <button onClick={()=>console.log(refTest)}/>
           Learn React
         </a>
       </header>
